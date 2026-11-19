@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ecuaciones con Ruffini – 4º ESO · IES San José</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#1a1a1a;min-height:100vh}
+header{background:#534AB7;color:#fff;padding:1rem 1.5rem}
+header h1{font-size:17px;font-weight:600}
+header p{font-size:12px;opacity:.75;margin-top:2px}
+.container{max-width:760px;margin:0 auto;padding:1.5rem 1rem}
+.main-nav{display:flex;gap:4px;margin-bottom:1.5rem;background:#e8e6e0;border-radius:12px;padding:4px}
+.main-btn{flex:1;padding:10px 6px;border:none;background:transparent;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:#666;transition:all .2s}
+.main-btn.active{background:#fff;color:#1a1a1a;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.section{display:none}.section.active{display:block}
+.card{background:#fff;border:1px solid #e0ddd5;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+h2{font-size:17px;font-weight:600;margin-bottom:8px}
+h3{font-size:14px;font-weight:700;margin:14px 0 4px;color:#3C3489}
+p{font-size:14px;line-height:1.7}
+.small{font-size:13px;color:#666}
+.aviso{background:#FAEEDA;border:1px solid #EF9F27;border-radius:8px;padding:8px 12px;margin-top:10px;font-size:13px;color:#633806;line-height:1.65}
+.step-list{margin:.6rem 0;display:flex;flex-direction:column;gap:8px}
+.step{display:flex;gap:10px;align-items:flex-start}
+.step-num{width:24px;height:24px;border-radius:50%;background:#EEEDFE;color:#3C3489;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.step-text{font-size:14px;line-height:1.7;min-width:0;flex:1}
+.hoja{background:#fffdf6;border:1px solid #e3dcc6;border-left:3px solid #e8a0a0;border-radius:6px;padding:.4rem 1rem;margin-top:10px}
+.hoja p{font-size:13px}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.links a{font-size:13px;color:#3C3489;background:#EEEDFE;border-radius:8px;padding:6px 10px;text-decoration:none}
+.links a:hover{background:#dcd9fb}
+.katex{font-size:1.08em}
+.katex-display{margin:.5em 0;overflow-x:auto;overflow-y:hidden;padding:3px 0}
+.katex-display>.katex{font-size:1.15em}
+/* práctica */
+.top{background:#fff;border:1px solid #e0ddd5;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.progress{display:flex;justify-content:space-between;gap:12px;align-items:center;font-weight:600;font-size:14px}
+.progress #progressText{color:#534AB7}
+.bar{height:9px;border-radius:99px;background:#e8e6e0;overflow:hidden;margin-top:8px}
+.bar>div{background:#534AB7;height:100%;transition:width .25s}
+.step-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:1rem}
+.tab{border:1px solid #e0ddd5;border-radius:10px;background:#fff;padding:8px 4px;cursor:pointer;font-size:12px;line-height:1.3;color:#1a1a1a;transition:all .2s}
+.tab:hover{border-color:#7F77DD}
+.tab b{display:block;font-size:17px}
+.tab .c{display:block;font-size:10px;opacity:.75;margin-top:1px}
+.tab.active{background:#534AB7;border-color:#534AB7;color:#fff}
+.tab.hecha:not(.active){background:#EAF3DE;border-color:#97C459}
+.ex-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ex-num{font-size:11px;color:#999;font-weight:600;letter-spacing:.3px}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700}
+.badge-ok{background:#EAF3DE;color:#27500A}.badge-help{background:#FAEEDA;color:#633806}
+.fase{border-top:1px dashed #e0ddd5;padding-top:10px;margin-top:10px}
+.fase-t{font-size:12px;font-weight:700;color:#534AB7;margin-bottom:4px}
+.fase.hecha .fase-t{color:#3B6D11}
+.fase.hecha .fase-t::before{content:"✓ "}
+.opts{display:flex;gap:7px;flex-wrap:wrap;margin-top:6px}
+.opt-btn{padding:7px 14px;border-radius:8px;border:1px solid #ccc;background:#f5f4f0;font-size:13px;cursor:pointer;font-weight:500;color:#1a1a1a}
+.opt-btn:hover{border-color:#7F77DD;color:#3C3489;background:#EEEDFE}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.row input.t{width:220px;font:inherit;font-size:15px;min-height:40px;border:1px solid #ccc;border-radius:8px;padding:7px 10px}
+.row input.n{width:70px;font:inherit;font-size:16px;min-height:40px;border:1px solid #ccc;border-radius:8px;padding:6px;text-align:center}
+.coefs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.coefs label{display:flex;flex-direction:column;align-items:center;font-size:12px;color:#666;gap:2px}
+.coefs input{width:58px;font:inherit;font-size:16px;min-height:40px;border:1px solid #ccc;border-radius:8px;padding:6px;text-align:center}
+input.bad{background:#FCEBEB;border-color:#E24B4A}
+input.ok{background:#EAF3DE;border-color:#639922}
+.primary{padding:8px 16px;background:#534AB7;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+.primary:hover{background:#3C3489}
+.secondary{padding:7px 12px;background:#fff;border:1px solid #AFA9EC;border-radius:8px;font-size:13px;color:#3C3489;cursor:pointer}
+.secondary:hover{background:#EEEDFE}
+.link-btn{background:none;border:none;font-size:12px;color:#534AB7;cursor:pointer;text-decoration:underline;padding:0}
+.msg{margin-top:8px;font-size:13px;padding:7px 11px;border-radius:8px;line-height:1.7}
+.msg.ok{background:#EAF3DE;color:#27500A}
+.msg.bad{background:#FCEBEB;color:#791F1F}
+.msg.info{background:#EEEDFE;color:#3C3489}
+/* tabla de Ruffini */
+.ruf-wrap{overflow-x:auto;margin:6px 0}
+.ruf-lbl{font-size:13px;color:#444;margin-top:8px}
+table.ruf{border-collapse:collapse;margin:6px auto;font-family:KaTeX_Main,"Times New Roman",serif;font-size:19px}
+table.ruf td{min-width:52px;height:42px;text-align:center;padding:2px 5px}
+table.ruf td.a{border-right:2px solid #1a1a1a;color:#534AB7;font-weight:700;min-width:44px}
+table.ruf tr.pr td{border-bottom:2px solid #1a1a1a}
+table.ruf td.r{border-left:2px solid #1a1a1a}
+table.ruf tr.bt td.r.cero{background:#EAF3DE;color:#27500A;font-weight:700}
+table.ruf tr.bt td.r.nocero{background:#FCEBEB;color:#791F1F;font-weight:700}
+table.ruf input{width:50px;height:34px;text-align:center;font-family:inherit;font-size:18px;border:2px solid #7F77DD;border-radius:6px;background:#fff}
+table.ruf input.bad{border-color:#E24B4A;background:#FCEBEB}
+table.ruf td.fill{color:#1a1a1a}
+.ruf-old{opacity:.75}
+.end{background:linear-gradient(135deg,#EAF3DE,#FAEEDA);border:1px solid #97C459;border-radius:12px;padding:1.25rem;text-align:center;margin-bottom:1rem}
+.end h2{color:#27500A}
+.end p{color:#3B6D11;margin-bottom:10px}
+.end .row{justify-content:center}
+.fine{font-size:11px;color:#777;margin-top:10px}
+.summary{white-space:pre-wrap;background:#fff;padding:10px;border-radius:8px;font-size:12px;text-align:left;margin-top:8px}
+.hidden{display:none}
+footer{text-align:center;font-size:11px;color:#999;padding:0 1rem 1.5rem}
+@media(max-width:560px){.step-tabs{grid-template-columns:repeat(2,1fr)}table.ruf td{min-width:44px}table.ruf input{width:44px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Ecuaciones con Ruffini</h1>
+  <p>4º ESO · Matemáticas B · IES San José (Badajoz) · Cristina Ramos García</p>
+</header>
+<div class="container">
+
+<div class="main-nav">
+  <button class="main-btn active" onclick="switchMain('guia',this)">📖 Guía</button>
+  <button class="main-btn" onclick="switchMain('practica',this)">✏️ Practica 3 en 3</button>
+</div>
+
+<!-- ===================== GUÍA ===================== -->
+<div id="guia" class="section active">
+  <div class="card">
+    <h2>La idea: un producto igual a cero</h2>
+    <p>Si un producto vale 0, alguno de sus factores vale 0. Por eso, si conseguimos <strong>factorizar</strong> el polinomio, basta con igualar a 0 cada factor:</p>
+    <div class="md">x\,(x - 1)(x^2 - 5x + 6) = 0 \;\left\{\begin{array}{l} x = 0 \\[4pt] x - 1 = 0 \;\rightarrow\; x = 1 \\[4pt] x^2 - 5x + 6 = 0 \;\rightarrow\; x = 2,\; x = 3 \end{array}\right.</div>
+    <p>Para las ecuaciones de grado 3 y 4 que no son bicuadradas, la herramienta para factorizar es la <strong>regla de Ruffini</strong>, que ya conoces del tema de polinomios.</p>
+  </div>
+
+  <div class="card">
+    <h2>El plan, paso a paso</h2>
+    <div class="step-list">
+      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>¿Factor común?</strong> Si no hay término independiente, saca <span class="m">x</span> (o <span class="m">x^2</span>) factor común antes de nada. Te da la solución <span class="m">x = 0</span> y baja el grado.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Buscar raíces enteras</strong> entre los divisores del término independiente, positivos y negativos.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Ruffini.</strong> Si el resto da 0, ese número es raíz y el polinomio baja un grado. Si no, se prueba otro divisor.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Cuando queda uno de 2º grado</strong>, se resuelve con la fórmula o como incompleta.</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text"><strong>Reunir todas las soluciones</strong>: el 0 del factor común (si lo hubo), las raíces de Ruffini y las de la ecuación de 2º grado.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Ejemplo resuelto (así se escribe en el examen)</h2>
+    <p>Resolver <span class="m">x^3 - 2x^2 - 5x + 6 = 0</span>.</p>
+    <div class="hoja">
+      <p>Probamos con los divisores de 6: <span class="m">\pm 1,\; \pm 2,\; \pm 3,\; \pm 6</span>.</p>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center">
+        <table class="ruf"><tr><td class="a"></td><td>1</td><td>−2</td><td>−5</td><td class="r">6</td></tr><tr class="pr"><td class="a">−1</td><td></td><td>−1</td><td>3</td><td class="r">2</td></tr><tr class="bt"><td class="a"></td><td>1</td><td>−3</td><td>−2</td><td class="r nocero">8</td></tr></table>
+        <table class="ruf"><tr><td class="a"></td><td>1</td><td>−2</td><td>−5</td><td class="r">6</td></tr><tr class="pr"><td class="a">1</td><td></td><td>1</td><td>−1</td><td class="r">−6</td></tr><tr class="bt"><td class="a"></td><td>1</td><td>−1</td><td>−6</td><td class="r cero">0</td></tr></table>
+      </div>
+      <p><span class="m">-1</span> no es raíz (resto 8). <span class="m">1</span> sí es raíz (resto 0). Entonces:</p>
+      <div class="md">(x - 1)(x^2 - x - 6) = 0 \;\left\{\begin{array}{l} x - 1 = 0 \;\rightarrow\; x = 1 \\[6pt] x^2 - x - 6 = 0 \end{array}\right.</div>
+      <div class="md">x^2 - x - 6 = 0 \;\rightarrow\; x = \dfrac{1 \pm \sqrt{1 + 24}}{2} = \dfrac{1 \pm 5}{2} \;\rightarrow\; x = 3,\; x = -2</div>
+      <div class="md">\text{Soluciones: } \; x_1 = 1, \quad x_2 = 3, \quad x_3 = -2</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Con factor común primero</h2>
+    <p>Es el ejemplo del libro: <span class="m">x^4 - x^3 - 20x^2 = 0</span>. No hay número suelto, así que no hace falta Ruffini:</p>
+    <div class="md">x^2\,(x^2 - x - 20) = 0 \;\left\{\begin{array}{l} x^2 = 0 \;\rightarrow\; x = 0 \;(\text{doble}) \\[6pt] x^2 - x - 20 = 0 \;\rightarrow\; x = 5,\; x = -4 \end{array}\right.</div>
+    <div class="aviso">No dividas entre <span class="m">x</span> ni entre <span class="m">x^2</span>: perderías la solución <span class="m">x = 0</span>.</div>
+  </div>
+
+  <div class="card">
+    <h2>Cómo se hace Ruffini</h2>
+    <div class="step-list">
+      <div class="step"><div class="step-num">1</div><div class="step-text">Escribe los coeficientes ordenados de mayor a menor grado. <strong>Si falta un grado, pon un 0.</strong> En <span class="m">x^3 - 7x - 6</span> los coeficientes son <span class="m">1,\; 0,\; -7,\; -6</span>.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Pon a la izquierda el número que pruebas y <strong>baja</strong> el primer coeficiente.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Multiplica</strong> ese número por el último de abajo y escribe el resultado en la columna siguiente. <strong>Suma</strong> la columna.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">Repite hasta el final. El último número es el <strong>resto</strong>. Los demás son los coeficientes del cociente, que tiene un grado menos.</div></div>
+    </div>
+    <div class="aviso">Ojo con el signo del factor: si la raíz es <span class="m">2</span>, el factor es <span class="m">(x - 2)</span>; si la raíz es <span class="m">-3</span>, el factor es <span class="m">(x + 3)</span>. Y una raíz puede repetirse: después de dividir, vuelve a probar el mismo número.</div>
+  </div>
+
+  <div class="card">
+    <h2>Recursos de la serie</h2>
+    <div class="links">
+      <a href="https://cmramosg01.github.io/discriminante_ecuaciones_g2/" target="_blank" rel="noopener">El discriminante</a>
+      <a href="https://cmramosg01.github.io/ecuaciones_3en3/" target="_blank" rel="noopener">Ecuaciones · 3 en 3</a>
+      <a href="https://cmramosg01.github.io/ecuaciones_bicuadradas/" target="_blank" rel="noopener">Ecuaciones bicuadradas</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PRÁCTICA ===================== -->
+<div id="practica" class="section">
+  <div class="top">
+    <div class="progress"><span id="setTitle">Tanda 1</span><span id="progressText">0 de 3</span></div>
+    <div class="bar"><div id="progressBar" style="width:0%"></div></div>
+    <p class="small" style="margin-top:8px">Tres ecuaciones cada vez. Vas paso a paso: factor común, coeficientes, Ruffini casilla a casilla, la ecuación de 2º grado que queda y, al final, todas las soluciones. Cada paso se corrige al momento.</p>
+  </div>
+  <nav class="step-tabs" id="tabs" aria-label="Elegir tanda"></nav>
+  <div id="exerciseArea"></div>
+  <section class="end hidden" id="end">
+    <h2 id="endTitle">¡Tanda completada!</h2>
+    <p id="endText"></p>
+    <div class="row"><button class="primary" id="nextBtn">Siguiente tanda</button><button class="secondary" id="copyBtn">Copiar mi resultado</button></div>
+    <pre class="summary hidden" id="summary"></pre>
+    <p class="fine">Tu avance se guarda en este navegador. Para que lo vea tu profesora o profesor, copia el resultado y envíaselo.</p>
+  </section>
+  <div class="top">
+    <strong style="font-size:14px">Cómo funciona</strong>
+    <p class="small">En la tabla de Ruffini escribe cada número y pulsa <strong>Intro</strong> (o toca fuera de la casilla). Si está bien, se abre la siguiente. Las soluciones se separan con punto y coma: <strong>2; −3</strong>, fracciones como <strong>1/2</strong>, o <strong>ninguna</strong>.</p>
+    <p class="small" style="margin-top:6px">«Pista» te orienta sin hacerlo por ti. Los botones que completan un paso cuentan como ayuda.</p>
+    <button class="secondary" id="resetBtn" style="margin-top:8px">Reiniciar todas mis tandas</button>
+  </div>
+</div>
+
+</div>
+<footer>Basado en Matemáticas 4.º ESO B, Anaya (Operación Mundo), unidades 2 y 3.</footer>
+
+<script>
+'use strict';
+const K =t=>katex.renderToString(t,{throwOnError:false});
+const KD=t=>katex.renderToString(t,{throwOnError:false,displayMode:true});
+document.querySelectorAll('.m').forEach(e=>katex.render(e.textContent,e,{throwOnError:false}));
+document.querySelectorAll('.md').forEach(e=>katex.render(e.textContent,e,{throwOnError:false,displayMode:true}));
+function switchMain(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.main-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');btn.classList.add('active');
+}
+const $=id=>document.getElementById(id);
+
+/* ============ aritmética ============ */
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1}
+function F(n,d){if(d<0){n=-n;d=-d}const g=gcd(n,d);return{n:n/g,d:d/g}}
+const fval=f=>f.n/f.d;
+const isSq=n=>n>=0&&Math.round(Math.sqrt(n))**2===n;
+const isqrt=n=>Math.round(Math.sqrt(n));
+const tpar=n=>n<0?`(${n})`:String(n);
+const tfr=(a,b)=>`\\dfrac{${a}}{${b}}`;
+const tF=f=>f.d===1?String(f.n):(f.n<0?'-':'')+tfr(Math.abs(f.n),f.d);
+const fmt=n=>n<0?'−'+Math.abs(n):String(n);
+function tp(terms,v='x'){
+  let o='',first=true;
+  for(const[c,e]of terms){
+    if(!c)continue;
+    const a=Math.abs(c),cs=(a===1&&e!==0)?'':String(a);
+    const vs=e===0?'':(e===1?v:`${v}^{${e}}`);
+    if(first){o+=(c<0?'-':'')+cs+vs;first=false}else o+=(c<0?' - ':' + ')+cs+vs;
+  }
+  return first?'0':o;
+}
+const tpa=arr=>tp(arr.map((c,i)=>[c,arr.length-1-i]));
+const fx=a=>a===0?'x':a>0?`(x - ${a})`:`(x + ${-a})`;
+const near=(a,b)=>Math.abs(a-b)<1e-6;
+const has=(arr,x)=>arr.some(y=>near(x,y));
+const setEq=(u,e)=>u.length===e.length&&e.every(x=>has(u,x));
+const uniq=arr=>{const o=[];arr.forEach(x=>{if(!has(o,x))o.push(x)});return o};
+function divisores(n){n=Math.abs(n);const d=[];for(let i=1;i<=n;i++)if(n%i===0)d.push(i,-i);return d}
+function ruf(top,a){const n=top.length-1,prod=[null],bot=[top[0]];for(let j=1;j<=n;j++){prod[j]=a*bot[j-1];bot[j]=top[j]+prod[j]}return{prod,bot}}
+function rootOf(f){
+  const N=f.n*f.d;let k=1,m=N;
+  for(let i=Math.floor(Math.sqrt(N));i>1;i--){if(N%(i*i)===0){k=i;m=N/(i*i);break}}
+  const g=gcd(k,f.d),kk=k/g,dd=f.d/g;
+  const core=m===1?String(kk):(kk===1?'':kk)+`\\sqrt{${m}}`;
+  return{tex:dd===1?core:tfr(core,dd),v:Math.sqrt(f.n/f.d)};
+}
+/* ecuación de 2º grado [A,B,C]: soluciones con multiplicidad y resolución en LaTeX */
+function quad(q){
+  const[A,B,C]=q,eq=tpa(q)+' = 0';let h='',s=[];
+  const D=B*B-4*A*C;
+  if(C===0){
+    s=[{v:0,t:'0'},{v:-B/A,t:tF(F(-B,A))}];
+    h=KD(`${eq} \\;\\Rightarrow\\; x\\,(${tp([[A,1],[B,0]])}) = 0 \\;\\Rightarrow\\; x = 0,\\; x = ${tF(F(-B,A))}`);
+  }else if(B===0){
+    const r=F(-C,A);
+    if(fval(r)<0){h=KD(`${eq} \\;\\Rightarrow\\; x^2 = ${tF(r)}`)+'<p class="small">No tiene solución: ningún número al cuadrado da negativo.</p>'}
+    else{const R=rootOf(r);s=[{v:R.v,t:R.tex},{v:-R.v,t:'-'+R.tex}];h=KD(`${eq} \\;\\Rightarrow\\; x^2 = ${tF(r)} \\;\\Rightarrow\\; x = \\pm ${R.tex}`)}
+  }else{
+    const p=4*A*C,nb=String(-B),den=A===1?'2':`2\\cdot ${tpar(A)}`;
+    h=KD(`\\Delta = ${tpar(B)}^2 - 4\\cdot ${tpar(A)}\\cdot ${tpar(C)} = ${B*B} ${p>=0?'-':'+'} ${Math.abs(p)} = ${D}`);
+    if(D<0)h+=`<p class="small">Como ${K('\\Delta < 0')}, no tiene solución real.</p>`;
+    else if(isSq(D)){
+      const sd=isqrt(D),x1=F(-B+sd,2*A),x2=F(-B-sd,2*A);
+      if(D===0){h+=KD(`x = \\dfrac{${nb}}{${2*A}} = ${tF(x1)} \\quad (\\text{doble})`);s=[{v:fval(x1),t:tF(x1)},{v:fval(x1),t:tF(x1)}]}
+      else{h+=KD(`x = \\dfrac{${nb} \\pm \\sqrt{${D}}}{${den}} = \\dfrac{${nb} \\pm ${sd}}{${2*A}} \\;\\rightarrow\\; x = ${tF(x1)},\\; x = ${tF(x2)}`);s=[{v:fval(x1),t:tF(x1)},{v:fval(x2),t:tF(x2)}]}
+    }else{
+      const v1=(-B+Math.sqrt(D))/(2*A),v2=(-B-Math.sqrt(D))/(2*A);
+      h+=KD(`x = \\dfrac{${nb} \\pm \\sqrt{${D}}}{${den}}`);s=[{v:v1,t:`\\dfrac{${nb} + \\sqrt{${D}}}{${2*A}}`},{v:v2,t:`\\dfrac{${nb} - \\sqrt{${D}}}{${2*A}}`}];
+    }
+  }
+  return{h,s,D};
+}
+
+/* ============ ejercicios ============ */
+const sets=[
+ {title:'1 · Tercer grado, raíz sencilla',short:'Grado 3',items:[[1,-6,11,-6],[1,2,-5,-6],[1,-3,-4,12]]},
+ {title:'2 · Faltan términos, raíces negativas',short:'Huecos y negativas',items:[[1,0,-7,-6],[1,0,-1,6],[1,3,0,-4]]},
+ {title:'3 · Cuarto grado: Ruffini dos veces',short:'Grado 4',items:[[1,-5,5,5,-6],[1,2,-7,-8,12],[1,-1,-3,1,2]]},
+ {title:'4 · Mezcla, con factor común',short:'Mezcla',items:[[1,-2,-8,0,0],[1,1,-4,-4,0],[4,-4,-9,1,2]]}
+].map(s=>({...s,items:s.items.map(prep)}));
+function prep(c){
+  let k=0;while(c[c.length-1-k]===0)k++;
+  const e={c,k,p0:c.slice(0,c.length-k),eq:tpa(c)+' = 0'};
+  /* camino de referencia: raíces con multiplicidad y forma factorizada */
+  let cur=e.p0.slice(),rr=[];
+  while(cur.length>3){const r=divisores(cur[cur.length-1]).find(a=>ruf(cur,a).bot[cur.length-1]===0);if(r===undefined)break;rr.push(r);cur=ruf(cur,r).bot.slice(0,-1)}
+  const qd=quad(cur);
+  e.mult=[...Array(k).fill(0),...rr,...qd.s.map(x=>x.v)];
+  e.exp=uniq(e.mult);
+  e.texSol=uniq([...Array(k).fill(0),...rr,...qd.s.map(x=>x.v)]).map(v=>{const q=qd.s.find(x=>near(x.v,v));return{v,t:q&&!Number.isInteger(v)?q.t:String(v)}});
+  e.fact=(k?(k===1?'x':`x^{${k}}`):'')+rr.map(fx).join('')+`(${tpa(cur)})`;
+  return e;
+}
+function solTex(e){
+  const cnt=v=>e.mult.filter(x=>near(x,v)).length;
+  return e.texSol.map((s,i)=>`x_{${i+1}} = ${s.t}${cnt(s.v)===2?'\\;(\\text{doble})':cnt(s.v)===3?'\\;(\\text{triple})':''}`).join(',\\quad ');
+}
+
+/* ============ estado ============ */
+const KEY='ecuaciones-ruffini-v1';
+let store;try{store=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){store={}}
+if(!Array.isArray(store.res)||store.res.length!==sets.length)store.res=sets.map(s=>s.items.map(()=>null));
+let active=Number.isInteger(store.active)&&store.active<sets.length?store.active:0;
+function save(){store.active=active;try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}}
+let run=sets.map(s=>s.items.map(()=>null));
+function newSt(e){return{fase:'fc',fcMsg:null,cur:e.p0.slice(),coefVals:e.p0.map(()=>''),coefMsg:null,coefOk:false,tables:[],tryVal:'',tryMsg:null,roots:[],quadVal:'',quadMsg:null,quadTries:0,quadDone:false,finalVal:'',finalMsg:null,finalTries:0,help:false,errors:0,pistas:{},focus:null}}
+const S=i=>run[active][i]||(run[active][i]=newSt(sets[active].items[i]));
+const E=i=>sets[active].items[i];
+
+/* ============ lectura de soluciones ============ */
+function parseCand(str){
+  let s=str.toLowerCase().trim();
+  if(!s)return null;
+  if(/ningun|no tiene|no hay|sin soluc|^∅$|^no$/.test(s))return[[]];
+  s=s.replace(/[−–]/g,'-').replace(/\+\s*-|\+\/-/g,'±').replace(/±\s+/g,'±')
+     .replace(/x\s*[₁₂₃₄_0-9]*\s*=/g,' ').replace(/doble|triple/g,' ').replace(/\s(y|o)\s/g,';');
+  const tryParse=parts=>{
+    const out=[];
+    for(let t of parts){
+      t=t.trim();if(!t)continue;
+      let pm=false;if(t.startsWith('±')){pm=true;t=t.slice(1)}
+      let n;
+      if(/^[-+]?\d+(\.\d+)?\/[-+]?\d+(\.\d+)?$/.test(t)){const[p,q]=t.split('/').map(Number);n=q?p/q:NaN}
+      else if(/^[-+]?\d+(\.\d+)?$/.test(t))n=Number(t);
+      else return null;
+      if(!Number.isFinite(n))return null;
+      out.push(n);if(pm)out.push(-n);
+    }
+    return out.length?uniq(out):null;
+  };
+  const c=[tryParse(s.split(/[;,\s]+/)),tryParse(s.replace(/(\d),(\d)/g,'$1.$2').split(/[;,\s]+/))].filter(Boolean);
+  return c.length?c:'err';
+}
+const numIn=s=>{s=String(s).replace(/[−–]/g,'-').replace(/\s/g,'');if(s===''||!/^[-+]?\d+$/.test(s))return null;return Number(s)};
+const ERRFMT='No se entiende. Separa con punto y coma (2; −3), fracciones con / (1/2), o escribe «ninguna».';
+
+/* ============ pintado general ============ */
+function update(){
+  const s=sets[active];
+  $('setTitle').textContent='Tanda '+s.title;
+  $('tabs').innerHTML=sets.map((z,i)=>{const n=store.res[i].filter(Boolean).length;
+    return`<button class="tab ${i===active?'active':''} ${n===3?'hecha':''}" onclick="goSet(${i})"><b>${i+1}</b>${z.short}<span class="c">${n}/3</span></button>`}).join('');
+  $('exerciseArea').innerHTML=s.items.map((_,i)=>`<article class="card" id="ex${i}"></article>`).join('');
+  s.items.forEach((_,i)=>pinta(i));
+  pintaFinal();
+}
+function goSet(i){active=i;save();update();window.scrollTo({top:0,behavior:'smooth'})}
+function pintaFinal(){
+  const res=store.res[active],n=res.filter(Boolean).length;
+  $('progressText').textContent=n+' de 3';$('progressBar').style.width=(100*n/3)+'%';
+  $('end').classList.toggle('hidden',n!==3);
+  const ay=res.filter(r=>r&&r.help).length;
+  $('endTitle').textContent='¡Tanda '+(active+1)+' completada!';
+  $('endText').textContent=ay?`Has terminado las tres (${ay} con ayuda). Si quieres, repite esas antes de seguir.`:'Has resuelto las tres sin ayuda.';
+  $('nextBtn').textContent=active===sets.length-1?'Volver a la primera tanda':'Siguiente tanda';
+  $('tabs').querySelectorAll('.tab').forEach((b,i)=>{const m=store.res[i].filter(Boolean).length;b.querySelector('.c').textContent=m+'/3';b.classList.toggle('hecha',m===3)});
+}
+const msg=m=>m?`<div class="msg ${m.c}">${m.t}</div>`:'';
+const pistaBtn=(i,k)=>`<button class="link-btn" onclick="togPista(${i},'${k}')">${S(i).pistas[k]?'Ocultar pista':'Pista'}</button>`;
+function togPista(i,k){const st=S(i);st.pistas[k]=!st.pistas[k];pinta(i)}
+
+function pinta(i){
+  const e=E(i),box=$('ex'+i),res=store.res[active][i];
+  let h=`<div class="ex-head"><span class="ex-num">Ejercicio ${i+1} de 3</span>`;
+  if(res)h+=res.help?'<span class="badge badge-help">Resuelto con ayuda</span>':'<span class="badge badge-ok">✓ Resuelto</span>';
+  h+='</div><p class="small" style="margin-top:4px">Resuelve:</p>'+KD(e.eq);
+  if(res&&!run[active][i]){ /* ya resuelta en otra sesión */
+    h+=`<div class="fase hecha"><div class="fase-t">Resultado</div>${KD(e.fact+' = 0')}${KD('\\text{Soluciones: }\\; '+solTex(e))}</div>`;
+    h+=`<div class="row"><button class="secondary" onclick="repetir(${i})">Volver a hacerla</button></div>`;
+    box.innerHTML=h;return;
+  }
+  const st=S(i);
+  h+=faseFC(i,e,st);
+  if(st.fase!=='fc'){
+    if(e.p0.length>3)h+=faseCoef(i,e,st);
+    if(st.coefOk)h+=faseRuffini(i,e,st);
+    if(st.cur.length===3&&(st.fase==='quad'||st.fase==='final'||st.fase==='hecha'))h+=faseQuad(i,e,st);
+    if(st.fase==='final'||st.fase==='hecha')h+=faseFinal(i,e,st);
+  }
+  box.innerHTML=h;
+  if(st.focus){const el=$(st.focus);if(el){el.focus();if(el.select)el.select()}st.focus=null}
+}
+function repetir(i){run[active][i]=newSt(E(i));pinta(i)}
+
+/* ---- fase 1: factor común ---- */
+function faseFC(i,e,st){
+  const done=st.fase!=='fc';
+  let h=`<div class="fase ${done?'hecha':''}"><div class="fase-t">1 · ¿Se puede sacar factor común x?</div>`;
+  if(!done){
+    h+=`<div class="opts"><button class="opt-btn" onclick="fc(${i},0)">No</button><button class="opt-btn" onclick="fc(${i},1)">Sí: ${K('x')}</button><button class="opt-btn" onclick="fc(${i},2)">Sí: ${K('x^2')}</button></div>`;
+    h+=`<div class="row">${pistaBtn(i,'fc')}</div>`;
+    if(st.pistas.fc)h+=msg({c:'info',t:'Mira el término independiente (el número sin x). Si es 0, todos los términos llevan x y se puede sacar factor común. ¿Cuál es la menor potencia de x que aparece?'});
+    h+=msg(st.fcMsg);
+  }else if(e.k){
+    h+=KD(`${e.eq} \\;\\Rightarrow\\; ${e.k===1?'x':'x^{'+e.k+'}'}\\,(${tpa(e.p0)}) = 0`);
+    h+=`<p class="small">${K(e.k===1?'x = 0':'x^2 = 0 \\;\\rightarrow\\; x = 0')} es solución${e.k===2?' (doble)':''}. Seguimos con ${K(tpa(e.p0)+' = 0')}.</p>`;
+  }else h+=`<p class="small">No: hay término independiente (${K(String(e.c[e.c.length-1]))}). Vamos con Ruffini.</p>`;
+  return h+'</div>';
+}
+function fc(i,op){
+  const e=E(i),st=S(i);
+  if(op===e.k){
+    st.fcMsg=null;
+    st.fase=e.p0.length===3?'quad':'coef';
+    st.coefOk=e.p0.length===3;
+    st.focus=st.fase==='quad'?`q${i}`:`cf${i}_0`;
+  }else{
+    st.errors++;
+    st.fcMsg={c:'bad',t:e.k===0?`No se puede: el término independiente es ${K(String(e.c[e.c.length-1]))}, no 0, así que no todos los términos llevan ${K('x')}.`
+      :op===0?`Sí se puede: no hay término independiente, todos los términos llevan ${K('x')}.`
+      :`Fíjate en la menor potencia de ${K('x')} que aparece: es ${K(e.k===1?'x':'x^'+e.k)}.`};
+  }
+  pinta(i);
+}
+
+/* ---- fase 2: coeficientes ---- */
+function faseCoef(i,e,st){
+  const p=e.p0,n=p.length-1;
+  let h=`<div class="fase ${st.coefOk?'hecha':''}"><div class="fase-t">2 · Coeficientes para Ruffini</div>`;
+  if(st.coefOk){h+=`<p class="small">${K(tpa(p))} &nbsp;→&nbsp; ${K(p.join(',\\;\\; '))}</p></div>`;return h}
+  h+=`<p class="small">Escribe los coeficientes de ${K(tpa(p))}, de mayor a menor grado.</p><div class="coefs">`;
+  p.forEach((_,j)=>{const g=n-j;h+=`<label>${K(g===0?'\\text{nº}':g===1?'x':'x^{'+g+'}')}<input id="cf${i}_${j}" value="${st.coefVals[j]}" class="${st.coefMsg&&st.coefBad&&st.coefBad[j]?'bad':''}" oninput="S(${i}).coefVals[${j}]=this.value" onkeydown="if(event.key==='Enter')coefCheck(${i})" inputmode="text" autocomplete="off"></label>`});
+  h+=`</div><div class="row"><button class="primary" onclick="coefCheck(${i})">Comprobar</button>${pistaBtn(i,'cf')}<button class="link-btn" onclick="coefFill(${i})">Rellénalos tú</button></div>`;
+  if(st.pistas.cf)h+=msg({c:'info',t:`Hay ${n+1} casillas, una por cada grado desde ${K('x^{'+n+'}')} hasta el número. Si falta algún grado, su coeficiente es 0.`});
+  return h+msg(st.coefMsg)+'</div>';
+}
+function coefCheck(i){
+  const e=E(i),st=S(i),p=e.p0;
+  const v=st.coefVals.map(numIn);
+  st.coefBad=v.map((x,j)=>x!==p[j]);
+  if(st.coefBad.every(b=>!b)){st.coefOk=true;st.coefMsg=null;st.fase='try';st.focus=`try${i}`}
+  else{
+    st.errors++;
+    const ceros=p.some((x,j)=>x===0&&st.coefBad[j]);
+    st.coefMsg={c:'bad',t:ceros?'Falta algún 0: si un grado no aparece, su coeficiente es 0 y hay que escribirlo.':'Revisa los que están en rojo: cuidado con los signos y con el orden (de mayor a menor grado).'};
+  }
+  pinta(i);
+}
+function coefFill(i){const st=S(i);st.coefVals=E(i).p0.map(String);st.help=true;coefCheck(i)}
+
+/* ---- fase 3: Ruffini ---- */
+function seq(n){const s=[['b',0]];for(let j=1;j<=n;j++)s.push(['p',j],['b',j]);return s}
+function tablaHTML(i,t,activa){
+  const n=t.top.length-1,sq=seq(n),cur=activa?sq[t.pos]:null;
+  const cell=(k,j)=>{
+    const val=k==='p'?t.prod[j]:t.bot[j];
+    if(val!==null&&val!==undefined)return fmt(val);
+    if(cur&&cur[0]===k&&cur[1]===j)return`<input id="c${i}" class="${t.bad?'bad':''}" value="${t.wrong||''}" onchange="celda(${i},this.value,${t.pos})" onkeydown="if(event.key==='Enter'){event.preventDefault();celda(${i},this.value,${t.pos})}" inputmode="text" autocomplete="off">`;
+    return'';
+  };
+  let h='<div class="ruf-wrap"><table class="ruf">';
+  h+='<tr><td class="a"></td>'+t.top.map((c,j)=>`<td class="${j===n?'r':''}">${fmt(c)}</td>`).join('')+'</tr>';
+  h+=`<tr class="pr"><td class="a">${fmt(t.a)}</td>`+t.top.map((_,j)=>`<td class="${j===n?'r':''}">${j===0?'':cell('p',j)}</td>`).join('')+'</tr>';
+  const rc=t.done?(t.bot[n]===0?'cero':'nocero'):'';
+  h+='<tr class="bt"><td class="a"></td>'+t.top.map((_,j)=>`<td class="${j===n?'r '+rc:''}">${cell('b',j)}</td>`).join('')+'</tr>';
+  return h+'</table></div>';
+}
+function faseRuffini(i,e,st){
+  let h='';
+  const enCurso=st.fase==='try'||st.fase==='table';
+  st.tables.forEach((t,ti)=>{
+    const activa=st.fase==='table'&&ti===st.tables.length-1;
+    const n=t.top.length-1;
+    h+=`<div class="fase ${t.done&&t.bot[n]===0?'hecha':''} ${t.done&&t.bot[n]!==0?'ruf-old':''}"><div class="fase-t">3 · Ruffini con ${K(tpa(t.top))}: probamos ${K('x = '+t.a)}</div>`;
+    h+=tablaHTML(i,t,activa);
+    if(activa){
+      h+=`<div class="row">${pistaBtn(i,'tb')}<button class="link-btn" onclick="tablaFill(${i})">Complétala tú</button></div>`;
+      if(st.pistas.tb)h+=msg({c:'info',t:'Baja el primer coeficiente. Después, multiplica el número de la izquierda por el último de abajo y escríbelo en la columna siguiente; luego suma esa columna. Repite hasta el final.'});
+      h+=msg(t.msg);
+    }else if(t.done){
+      const r=t.bot[n];
+      if(r===0)h+=`<div class="msg ok">Resto 0: ${K(String(t.a))} es raíz.</div>`+KD(`${tpa(t.top)} = ${fx(t.a)}\\,(${tpa(t.bot.slice(0,n))})`);
+      else h+=`<div class="msg bad">Resto ${fmt(r)}, no es 0: ${K(String(t.a))} no es raíz.</div>`;
+    }
+    h+='</div>';
+  });
+  if(st.fase==='try'){
+    const c=st.cur[st.cur.length-1],prob=st.tables.filter(t=>t.done&&sameArr(t.top,st.cur)&&t.bot[t.bot.length-1]!==0).map(t=>t.a);
+    h+=`<div class="fase"><div class="fase-t">3 · Buscar una raíz de ${K(tpa(st.cur))}</div>`;
+    h+=`<p class="small">¿Qué número pruebas? Tiene que ser divisor del término independiente, ${K(String(c))}.${prob.length?' Ya probados sin éxito: '+prob.map(fmt).join(', ')+'.':''}</p>`;
+    h+=`<div class="row">${K('x =')}<input class="n" id="try${i}" value="${st.tryVal}" oninput="S(${i}).tryVal=this.value" onkeydown="if(event.key==='Enter')probar(${i})" inputmode="text" autocomplete="off"><button class="primary" onclick="probar(${i})">Probar</button>${pistaBtn(i,'try')}</div>`;
+    if(st.pistas.try)h+=msg({c:'info',t:`Divisores de ${K(String(c))}: ${K(divisores(c).map(String).join(',\\; '))}. Empieza por los pequeños: ${K('1')}, ${K('-1')}, ${K('2')}, ${K('-2')}…`});
+    h+=msg(st.tryMsg)+'</div>';
+  }
+  return h;
+}
+const sameArr=(a,b)=>a.length===b.length&&a.every((x,j)=>x===b[j]);
+function probar(i){
+  const st=S(i),v=numIn(st.tryVal),c=st.cur[st.cur.length-1];
+  if(v===null){st.tryMsg={c:'bad',t:'Escribe un número entero.'}}
+  else if(v===0||c%v!==0){st.errors++;st.tryMsg={c:'bad',t:`${K(String(v))} no es divisor de ${K(String(c))}. Las raíces enteras están entre los divisores del término independiente.`}}
+  else if(st.tables.some(t=>t.done&&sameArr(t.top,st.cur)&&t.a===v&&t.bot[t.bot.length-1]!==0)){st.tryMsg={c:'bad',t:`Ya probaste ${K(String(v))} y el resto no dio 0. Prueba otro.`}}
+  else{
+    const n=st.cur.length-1;
+    st.tables.push({a:v,top:st.cur.slice(),prod:Array(n+1).fill(null),bot:Array(n+1).fill(null),pos:0,bad:false,msg:null,done:false,wrong:''});
+    st.tryMsg=null;st.tryVal='';st.fase='table';st.focus=`c${i}`;
+  }
+  pinta(i);
+}
+function celda(i,val,pos){
+  const st=S(i),t=st.tables[st.tables.length-1];if(!t||t.done||pos!==t.pos)return;
+  const n=t.top.length-1,[k,j]=seq(n)[t.pos];
+  const exp=k==='b'?(j===0?t.top[0]:t.top[j]+t.prod[j]):t.a*t.bot[j-1];
+  const v=numIn(val);
+  if(v===null&&String(val).trim()===''){return}
+  if(t.bad&&String(val)===t.wrong)return; /* mismo valor erróneo enviado dos veces (Intro + change) */
+  if(v===exp){
+    if(k==='b')t.bot[j]=v;else t.prod[j]=v;
+    t.pos++;t.bad=false;t.msg=null;t.wrong='';
+    if(t.pos===seq(n).length)acabaTabla(i,t);else st.focus=`c${i}`;
+  }else{
+    st.errors++;t.bad=true;t.wrong=String(val);
+    t.msg={c:'bad',t:k==='b'
+      ?(j===0?`Baja el primer coeficiente tal cual: ${K(String(t.top[0]))}.`:`Suma la columna: ${K(`${t.top[j]} + ${tpar(t.prod[j])}`)}.`)
+      :`Multiplica el número de la izquierda por el último de abajo: ${K(`${tpar(t.a)}\\cdot ${tpar(t.bot[j-1])}`)}.`};
+    st.focus=`c${i}`;
+  }
+  pinta(i);
+}
+function acabaTabla(i,t){
+  const st=S(i),n=t.top.length-1;t.done=true;
+  if(t.bot[n]===0){
+    st.roots.push(t.a);st.cur=t.bot.slice(0,n);
+    if(st.cur.length===3){st.fase='quad';st.focus=`q${i}`}else{st.fase='try';st.focus=`try${i}`}
+  }else{st.fase='try';st.focus=`try${i}`}
+}
+function tablaFill(i){
+  const st=S(i),t=st.tables[st.tables.length-1],r=ruf(t.top,t.a);
+  t.prod=r.prod;t.bot=r.bot;t.pos=seq(t.top.length-1).length;t.msg=null;t.bad=false;st.help=true;
+  acabaTabla(i,t);pinta(i);
+}
+
+/* ---- fase 4: ecuación de 2º grado ---- */
+function faseQuad(i,e,st){
+  const q=quad(st.cur),done=st.quadDone;
+  let h=`<div class="fase ${done?'hecha':''}"><div class="fase-t">4 · La ecuación de 2º grado que queda</div>${KD(tpa(st.cur)+' = 0')}`;
+  if(done){
+    h+=q.h+`<p class="small">Soluciones de esta ecuación: ${q.s.length?K(uniq(q.s.map(x=>x.v)).map(v=>q.s.find(x=>near(x.v,v)).t).join(',\\; ')):'ninguna'}.</p></div>`;
+    return h;
+  }
+  h+=`<p class="small">Resuélvela con lo que ya sabes (fórmula o incompleta) y escribe sus soluciones.</p>`;
+  h+=`<div class="row"><input class="t" id="q${i}" value="${st.quadVal}" oninput="S(${i}).quadVal=this.value" onkeydown="if(event.key==='Enter')quadCheck(${i})" placeholder="Ej.: 2; −3 o ninguna" autocomplete="off"><button class="primary" onclick="quadCheck(${i})">Comprobar</button>${pistaBtn(i,'q')}${st.quadTries>=2?`<button class="link-btn" onclick="quadShow(${i})">Ver cómo se resuelve</button>`:''}</div>`;
+  if(st.pistas.q){
+    const[A,B,C]=st.cur;
+    h+=msg({c:'info',t:C===0?`Le falta el número: saca factor común ${K('x')}.`:B===0?`Le falta el término en ${K('x')}: despeja ${K('x^2')} y no olvides el ${K('\\pm')}.`:`Es completa: ${K(`a = ${A},\\; b = ${B},\\; c = ${C}`)}. Calcula ${K('\\Delta = b^2 - 4ac')} y aplica la fórmula.`});
+  }
+  return h+msg(st.quadMsg)+'</div>';
+}
+function quadCheck(i){
+  const st=S(i),q=quad(st.cur),exp=uniq(q.s.map(x=>x.v)),c=parseCand(st.quadVal);
+  if(c===null){st.quadMsg={c:'bad',t:'Escribe las soluciones (o «ninguna»).'};pinta(i);return}
+  if(c==='err'){st.quadMsg={c:'bad',t:ERRFMT};pinta(i);return}
+  st.quadTries++;
+  if(c.some(u=>setEq(u,exp))){st.quadDone=true;st.quadMsg=null;st.fase='final';st.focus=`f${i}`}
+  else{
+    st.errors++;const u=c[c.length-1];
+    let t='Revisa los cálculos.';
+    if(exp.length&&setEq(u,exp.map(x=>-x)))t=`Te salen con el signo cambiado: revisa ${K('-b')}.`;
+    else if(q.D<0&&!(st.cur[2]===0||st.cur[1]===0))t=`Calcula ${K('\\Delta')}: si sale negativo, escribe «ninguna».`;
+    else if(exp.length===0)t='Esta ecuación no tiene soluciones reales: escribe «ninguna».';
+    else if(q.D===0&&u.length>1)t=`Con ${K('\\Delta = 0')} solo hay una solución (doble).`;
+    else if(u.length<exp.length&&u.every(x=>has(exp,x)))t=`Te falta una. ${st.cur[1]===0?`Recuerda el ${K('\\pm')}.`:''}`;
+    else if(u.length===exp.length&&exp.every(x=>u.some(y=>Math.abs(x-y)<0.01)))t='Casi: alguna está redondeada. Escríbela exacta, como fracción.';
+    st.quadMsg={c:'bad',t:t+(st.quadTries>=2?' Si te atascas, puedes ver cómo se resuelve.':'')};
+  }
+  pinta(i);
+}
+function quadShow(i){const st=S(i);st.help=true;st.quadDone=true;st.quadMsg=null;st.fase='final';st.focus=`f${i}`;pinta(i)}
+
+/* ---- fase 5: todas las soluciones ---- */
+function faseFinal(i,e,st){
+  const done=st.fase==='hecha';
+  let h=`<div class="fase ${done?'hecha':''}"><div class="fase-t">5 · Todas las soluciones de la ecuación</div>`;
+  if(done){
+    const fac=(e.k?(e.k===1?'x':`x^{${e.k}}`):'')+st.roots.map(fx).join('')+`(${tpa(st.cur)})`;
+    h+=KD(fac+' = 0')+KD('\\text{Soluciones: }\\; '+solTex(e));
+    return h+'<div class="msg ok"><strong>¡Ecuación resuelta!</strong></div></div>';
+  }
+  h+=`<p class="small">Reúne todas: ${e.k?`el ${K('x = 0')} del factor común, `:''}${st.roots.length?'las raíces de Ruffini (las de resto 0) ':''}y las de la ecuación de 2º grado. Las dobles, una sola vez.</p>`;
+  h+=`<div class="row"><input class="t" id="f${i}" value="${st.finalVal}" oninput="S(${i}).finalVal=this.value" onkeydown="if(event.key==='Enter')finalCheck(${i})" placeholder="Ej.: 0; 2; −3" autocomplete="off"><button class="primary" onclick="finalCheck(${i})">Comprobar</button>${st.finalTries>=3?`<button class="link-btn" onclick="finalShow(${i})">Ver la respuesta</button>`:''}</div>`;
+  return h+msg(st.finalMsg)+'</div>';
+}
+function finalCheck(i){
+  const e=E(i),st=S(i),c=parseCand(st.finalVal);
+  if(c===null){st.finalMsg={c:'bad',t:'Escribe todas las soluciones.'};pinta(i);return}
+  if(c==='err'){st.finalMsg={c:'bad',t:ERRFMT};pinta(i);return}
+  st.finalTries++;
+  if(c.some(u=>setEq(u,e.exp))){terminar(i);return}
+  st.errors++;
+  const u=c[c.length-1],miss=e.exp.filter(x=>!has(u,x)),extra=u.filter(x=>!has(e.exp,x));
+  let t;
+  if(extra.length){
+    const nr=extra.find(x=>st.tables.some(tb=>tb.done&&tb.a===x&&tb.bot[tb.bot.length-1]!==0));
+    t=nr!==undefined?`${K(String(nr))} no es solución: al probarlo con Ruffini, el resto no dio 0.`:`${K(String(+extra[0].toFixed(3)))} no es solución de la ecuación.`;
+  }else if(has(miss,0)&&e.k)t=`Te falta ${K('x = 0')}, que sale del factor común.`;
+  else if(miss.some(x=>st.roots.includes(x)))t='Te falta alguna raíz de las que encontraste con Ruffini (las de resto 0).';
+  else t='Te falta alguna solución de la ecuación de 2º grado.';
+  st.finalMsg={c:'bad',t:t+(st.finalTries>=3?' Si te atascas, puedes ver la respuesta.':'')};
+  pinta(i);
+}
+function finalShow(i){S(i).help=true;terminar(i)}
+function terminar(i){
+  const st=S(i),prev=store.res[active][i];
+  st.fase='hecha';st.finalMsg=null;
+  const sinAyudaAntes=prev&&!prev.help;
+  store.res[active][i]=sinAyudaAntes?prev:{help:st.help,errors:st.errors};
+  save();pinta(i);pintaFinal();
+}
+
+/* ============ resumen y botones ============ */
+function summary(){
+  const all=store.res.flat(),done=all.filter(Boolean).length,help=all.filter(r=>r&&r.help).length;
+  return'Ecuaciones con Ruffini (4º ESO)\n'+sets.map((s,i)=>{const g=store.res[i];
+    return`Tanda ${i+1} (${s.short}): ${g.filter(Boolean).length}/3 · fallos ${g.map(r=>r?r.errors:'-').join(', ')}${g.some(r=>r&&r.help)?' · con ayuda: '+g.filter(r=>r&&r.help).length:''}`}).join('\n')+
+    `\nTotal resueltas: ${done}/${all.length} (${help} con ayuda)`;
+}
+$('nextBtn').onclick=()=>goSet((active+1)%sets.length);
+$('copyBtn').onclick=async()=>{
+  const t=summary();
+  try{await navigator.clipboard.writeText(t);$('copyBtn').textContent='✓ Copiado'}
+  catch(e){$('summary').textContent=t;$('summary').classList.remove('hidden')}
+};
+$('resetBtn').onclick=()=>{
+  if(confirm('¿Borrar todo el progreso y empezar de nuevo?')){store.res=sets.map(s=>s.items.map(()=>null));run=sets.map(s=>s.items.map(()=>null));active=0;save();update()}
+};
+update();
+</script>
+</body>
+</html>
